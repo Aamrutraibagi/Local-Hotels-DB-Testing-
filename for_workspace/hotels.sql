@@ -34,7 +34,8 @@ CREATE TABLE `hotel_details` (
   `hotel_id` int NOT NULL,
   `hotel_name` varchar(128) NOT NULL,
   `city` varchar(64) NOT NULL,
-  `star_rating` int DEFAULT NULL
+  `star_rating` int DEFAULT NULL,
+  PRIMARY KEY (`hotel_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -44,7 +45,7 @@ CREATE TABLE `hotel_details` (
 
 LOCK TABLES `hotel_details` WRITE;
 /*!40000 ALTER TABLE `hotel_details` DISABLE KEYS */;
-INSERT INTO `hotel_details` VALUES (1,'Grand Plaza','Springfield',5),(2,'Sea View Resort','Oceanville',4),(3,'Mountain Retreat','Hilltop',4),(4,'Urban Hotel','Springfield',3),(5,'Countryside B&B','Springfield',5),(6,'Lakeside Inn','Laketown',5);
+INSERT INTO `hotel_details` VALUES (1,"Prince's Manor Hotel & Spa","Ahmadabad",2),(2,"Sunny View Hotel & Spa","Amreli",2),(3,"Rose Shores Resort","Bharuch",2),(4,"Elite Point Resort & Spa","Bhavnagar",1),(5,"Southern Star Motel","Bhuj",0),(6,"Sublime Expanse Resort","Dwarka",3),(7,"Cosmos Resort","Gandhinagar",4),(8,"Prism Resort & Spa","Godhra",1),(9,"Moss Resort & Spa","Jamnagar",2),(10,"Voyage Motel","Junagadh",2),(11,"King's Valley Hotel","Kandla",5),(12,"Light Manor Resort","Khambhat",2),(13,"Soft Forest Resort & Spa","Badami",2),(14,"Exalted Maple Hotel","Ballari",4),(15,"Majestic Palms Resort & Spa","Bengaluru",4),(16,"Double Oyster Hotel","Belagavi",1),(17,"Galaxy Resort","Bhadravati",5),(18,"Travel Hotel","Bidar",0),(19,"Stellar Hotel & Spa","Chikkamagaluru",4),(20,"Courtyard Resort & Spa","Chitradurga",1),(21,"Antique Covert Hotel","Davangere",0),(22,"Spring Majesty Hotel","Halebid",0),(23,"Light Cottage Hotel","Hassan",1),(24,"Summer Expanse Hotel","Hubballi-Dharwad",5),(25,"Double Brewery Hotel","Kalaburagi",5),(26,"Antique Flower Resort","Kolar",3),(27,"Pinnacle Hotel","Madikeri",3),(28,"Amber Hotel","Mandya",1),(29,"Nova Hotel","Mangaluru",1),(30,"Snooze Hotel","Mysuru",2);
 /*!40000 ALTER TABLE `hotel_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -60,7 +61,8 @@ CREATE TABLE `hotel_reviews` (
   `hotel_id` int NOT NULL,
   `guest_name` varchar(100) DEFAULT NULL,
   `review_text` text,
-  `rating` int DEFAULT NULL
+  `rating` int DEFAULT NULL,
+  FOREIGN KEY (`hotel_id`) REFERENCES `hotel_details` (`hotel_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -70,7 +72,7 @@ CREATE TABLE `hotel_reviews` (
 
 LOCK TABLES `hotel_reviews` WRITE;
 /*!40000 ALTER TABLE `hotel_reviews` DISABLE KEYS */;
-INSERT INTO `hotel_reviews` VALUES (1,1,'John Doe','Great service and location!',5),(2,2,'Jane Smith','Very clean and friendly staff.',4),(3,3,'Alice Johnson','Quiet and comfortable.',4),(4,1,'Bob Brown','Had a pleasant stay, will come back.',4),(5,5,'Charlie Davis','Could be better.',2),(6,4,'Eva Green','Not worth the price.',3),(7,10,'Arko Choudhary','Really, Really bad.',0);
+INSERT INTO hotel_reviews VALUES (1,1,"Savana","Great hotel! Excellent service, clean rooms, and comfortable beds.",5),(2,2,"Kelvin","Terrible experience. Dirty rooms, rude staff, and noisy surroundings.",2),(3,3,"Sydney","Wonderful stay! The hotel is well-maintained, with friendly staff and amazing amenities.",4),(4,4,"Emma","Awful hotel. Broken facilities, unhelpful staff, and awful food.",1),(5,5,"Abraham","Nice hotel with beautiful views. The room was spacious and the bed was comfortable.",3),(6,6,"Lucas","Worst hotel I've ever been to. Filthy rooms, terrible smell, and non-existent customer service.",0),(7,7,"Adelaide","Highly recommend this hotel! The staff was accommodating and the location was convenient.",4),(8,15,"Walter","Absolutely disgusting hotel. Bugs in the room, broken TV, and uncomfortable beds.",1),(9,16,"Tyler","Lovely hotel with a great atmosphere. The room was clean and the staff was friendly.",2),(10,17,"Clark","Horrible experience. Unresponsive staff, noisy neighbors, and subpar amenities.",0),(11,18,"Annabella","Great value for money. The hotel had a nice pool, clean rooms, and friendly staff.",3),(12,19,"Frederick","Avoid this hotel at all costs. Unsanitary conditions, rude staff, and overpriced.",3),(13,20,"Jenna","Cozy hotel with a charming ambiance. The bed was comfy and the breakfast was delicious.",4),(14,21,"Daryl","Disappointing stay. The room was not as advertised, and the service was terrible.",2),(15,22,"Alina","Well-run hotel with helpful staff. The room was modern and the location was ideal.",3),(16,27,"Penelope","Nightmare hotel. No hot water, broken AC, and unprofessional staff.",1),(17,28,"Sabrina","Fantastic experience! The hotel exceeded our expectations in every way.",5),(18,29,"Chelsea","Unacceptable conditions. Dirty sheets, noisy rooms, and unhygienic bathrooms.",1),(19,30,"Tiana","Impressive hotel with luxurious amenities. The staff was attentive and the rooms were stunning.",4),(20,5,"Daryl","Stay away from this hotel. Uncomfortable beds, poor hygiene, and unhelpful staff.",2),(21,6,"Ned","Outstanding service and breathtaking views. Definitely worth a visit!",4),(22,7,"Aida","The worst hotel I've ever stayed at. Rude staff, broken facilities, and terrible food.",0),(23,15,"Charlotte","Exceptional hotel with top-notch facilities. The room was spotless and the service was unmatched.",4),(24,16,"Maddie","No words can describe how awful this hotel is. Unsanitary conditions, rude staff, and constant noise.",1),(25,17,"Adrian","Pleasant stay with friendly staff. The location was convenient and the rooms were clean.",4),(26,19,"Ryan","Absolutely horrendous hotel. Uncomfortable beds, dirty rooms, and unprofessional staff.",1),(27,20,"Alexander","Highly recommended hotel with a great location. The staff was helpful and the rooms were spacious.",3),(28,21,"Amanda","Run-down hotel with terrible service. The rooms were outdated and the staff was unresponsive.",2),(29,22,"Walter","Delightful stay in a charming hotel. The room was cozy and the staff was accommodating.",4),(30,27,"Kevin","Disgusting hotel with zero cleanliness standards. Broken facilities and unfriendly staff.",2),(31,28,"Alfred","Top-notch hotel with exceptional service. The rooms were luxurious and the staff was attentive.",3),(32,29,"Eric","Stay far away from this hotel. Uncomfortable beds, unclean rooms, and incompetent staff.",1),(33,30,"Maya","Lovely hotel with a welcoming ambiance. The beds were comfortable and the breakfast was delicious.",3),(34,5,"Sofia","Avoid this hotel like the plague. Filthy conditions, non-existent customer service, and sky-high prices.",1),(35,6,"Abigail","Highly satisfied with our stay. The hotel had excellent amenities and friendly staff.",4),(41,28,"Kimberly","Perfect stay! The hotel had everything we needed, and the staff went above and beyond.",3),(42,29,"Agata","Avoid this hotel at all costs. Terrible hygiene, unresponsive staff, and exorbitant prices.",2),(43,30,"Edward","Charming hotel with a cozy atmosphere. The beds were comfortable and the staff was friendly.",3),(44,5,"Stuart","Disastrous stay. Uncomfortable beds, dirty rooms, and rude staff.",0),(45,6,"Amber","Great value for money. The hotel was clean, the service was excellent, and the location was convenient.",4);
 /*!40000 ALTER TABLE `hotel_reviews` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

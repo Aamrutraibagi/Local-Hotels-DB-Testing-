@@ -3,12 +3,49 @@
  */
 package com.crio.jdbc;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 public class App {
-    public String getGreeting() {
-        return "Hello world.";
+    public static void readAndPrintHotels(Connection conn){
+        
     }
 
-    public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+    public static void printNumberOfTables(Connection conn){
+
+    }
+
+    public static void checkForeignKeyConstraints(Connection conn){
+
+    }
+
+    public static void insertNewHotel(Connection conn){
+
+    }
+
+    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+        // TODO: Load JDBC Driver
+        Class.forName("com.mysql.jdbc.Driver");
+
+        // TODO: Establish a connection (You will have to update url every time workspace resets)
+        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:8083/hotels","crio-learner","learner-crio");
+
+        try{
+        // TODO: Implement a method to Read and Print the Columns `hotel_name` and `star_rating` from table hotel_details
+        readAndPrintHotels(conn);
+
+        // TODO: Implement a method to Print the number of Tables in database `hotels`
+        printNumberOfTables(conn);
+
+        // TODO: Enter a new entry in hotel_id and 3 reviews for the same
+        insertNewHotel(conn);
+        }
+        catch(Exception e){
+            System.out.println("Exception occured!!! \n "+ e.getStackTrace().toString());
+        }
+        finally{
+            conn.close();
+        }
     }
 }
