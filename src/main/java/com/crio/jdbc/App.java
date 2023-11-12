@@ -21,7 +21,7 @@ public class App {
         Connection conn = DriverManager.getConnection("jdbc:mysql://url:port/db","username","password");
 
         try{
-        // TODO: Implement a method to Print the number of Tables in database `hotels`
+        // TODO: Implement a method to Print the number and names of Tables in database `hotels`
         printNumberOfTables(conn);
 
         // TODO: Implement a method to Read and Print the Columns `hotel_name` and `star_rating` from table hotel_details
