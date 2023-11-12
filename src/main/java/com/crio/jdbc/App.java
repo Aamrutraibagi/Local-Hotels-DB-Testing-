@@ -17,8 +17,8 @@ public class App {
     }
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        // TODO: Establish a connection (You will have to update url every time workspace resets)
-        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:8083/hotels","crio-learner","learner-crio");
+        // TODO: Establish a connection
+        Connection conn = DriverManager.getConnection("jdbc:mysql://url:port/db","username","password");
 
         try{
         // TODO: Implement a method to Print the number of Tables in database `hotels`
