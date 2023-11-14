@@ -15,6 +15,9 @@ public class App {
     public static void readAndPrintHotels(Connection conn){
         
     }
+    public static void insertNewHotel(Connection conn){
+        
+    }
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         // TODO: Establish a connection
@@ -26,6 +29,9 @@ public class App {
 
         // TODO: Implement a method to Read and Print the Columns `hotel_name` and `star_rating` from table hotel_details
         readAndPrintHotels(conn);
+
+        // TODO: Insert a new Hotel Detail
+        insertNewHotel(conn);
         }
         catch(Exception e){
             System.out.println("Exception occured!!! \n "+ e.getStackTrace().toString());
