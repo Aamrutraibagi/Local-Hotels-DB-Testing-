@@ -1,71 +1,63 @@
-# Local-Hotels-DB-Testing-
-🏨 Hotel Database JDBC Project
+# 🏨 Local Hotels DB Testing - JDBC Project
 
-This project demonstrates how to use Java + JDBC to:
+This project demonstrates how to use **Java + JDBC** to:
 
-Connect to a MySQL database
+- Connect to a MySQL database  
+- Load database credentials from a `config.properties` file  
+- Retrieve metadata (like list of tables)  
+- Query and display hotel data from the `hotel_details` table  
+- Insert new hotel records  
+- Follow best practices in JDBC and modular design  
 
-Read from a properties file for DB credentials
+---
 
-Retrieve metadata (table list)
-
-Read hotel data from the hotel_details table
-
-Insert new hotel data
-
-Maintain clean database interaction using JDBC best practices
-
-📁 Project Structure
-
+## 📁 Project Structure
+```
 com-crio-jdbc/
 ├── db_data/
-│   └── hotels.sql               # SQL file to set up the database and tables
+│ └── hotels.sql # SQL file to create DB and table
 ├── src/
-│   ├── main/
-│   │   ├── java/com/crio/jdbc/
-│   │   │   └── App.java         # Main logic for DB testing
-│   │   └── resources/
-│   │       └── config.properties # DB configuration file
-│   └── test/
-│       └── java/com/crio/jdbc/
-│           └── AppTest.java     # (Optional) Unit tests
+│ ├── main/
+│ │ ├── java/
+│ │ │ └── com/crio/jdbc/
+│ │ │ └── App.java # Main DB logic
+│ │ └── resources/
+│ │ └── config.properties # DB config file
+│ └── test/
+│ └── java/
+│ └── com/crio/jdbc/
+│ └── AppTest.java # Unit test (optional)
+├── build.gradle # Gradle build script
+├── .gitignore
+└── README.md # Project documentation
+```
 
+---
 
-⚙️ Prerequisites
+## ⚙️ Prerequisites
 
-✅ Java (JDK 8 or above)
+- ✅ Java JDK (8 or above)  
+- ✅ MySQL Server (running on localhost:3306)  
+- ✅ Gradle (for building/running project)  
+- ✅ MySQL Workbench or CLI (optional, for DB management)  
 
-✅ MySQL
- installed and running
+---
 
-✅ Gradle (used to build/run this project)
+## 🛠️ MySQL Setup Instructions
 
-✅ MySQL Workbench or CLI (optional but recommended)
+### Step 1: Install MySQL  
+Download and install MySQL from: [https://dev.mysql.com/downloads/](https://dev.mysql.com/downloads/)  
+(Remember your root password during installation)
 
+### Step 2: Start MySQL Server  
+- Default host: `localhost`  
+- Default port: `3306`  
 
-🛠️ MySQL Installation & Setup
-📌 Step 1: Install MySQL
+### Step 3: Create Database & Table  
+Run the following SQL (also present in `db_data/hotels.sql`):  
 
-Download and install from MySQL Downloads
-
-During setup, remember your root password
-
-📌 Step 2: Start MySQL Server
-
-Ensure MySQL service is running on:
-
-Host:     localhost  
-Port:     3306  
-
-
-📌 Step 3: Create Database & Table
-
-Open MySQL CLI or Workbench
-
-Run the SQL commands in db_data/hotels.sql to create the schema and table:
-
+```sql
 CREATE DATABASE hotels;
-
 USE hotels;
 
 CREATE TABLE hotel_details (
@@ -75,24 +67,29 @@ CREATE TABLE hotel_details (
     city VARCHAR(50)
 );
 
+```
+---
 
-📁 config.properties
+📂 Config File
 
-Located at: src/main/resources/config.properties
-
+Path: src/main/resources/config.properties
+```
 db.url=jdbc:mysql://localhost:3306/hotels
 db.user=root
 db.password=Pappa@143
+```
+⚠️ Update the username/password as per your local MySQL setup.
 
-💡 Update db.user and db.password as per your MySQL setup.
-
+---
 🚀 Running the Project
 🔧 Build the project with Gradle:
+```
 ./gradlew build
-
+```
 ▶️ Run the app:
+```
 ./gradlew run
-
+```
 
 ✅ What the App Does
 
@@ -105,7 +102,7 @@ Prints all table names from the hotels database
 Reads and displays hotel names along with their star ratings
 
 Inserts a new hotel into hotel_details table
-
+```
 Total number of Tables: 1
 hotel_details
 
@@ -115,8 +112,9 @@ Taj Hotel | 5
 Oberoi Palace | 4
 
 A new hotel was inserted successfully!
-
-🧪 Future Enhancements
+```
+---
+## 🧪 Future Enhancements
 
 Add unit tests in AppTest.java
 
@@ -137,5 +135,5 @@ Use DAO pattern for clean separation
 📦 Modular structure using Gradle
 
 🤝 Contributing
-
+---
 Feel free to fork this repo, improve it, and submit a pull request. Contributions are welcome!
