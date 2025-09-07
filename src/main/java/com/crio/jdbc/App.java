@@ -3,27 +3,91 @@
  */
 package com.crio.jdbc;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.io.FileInputStream;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.Properties;
 
 public class App {
 
-    public static void printNumberOfTables(Connection conn){
+    public static void printNumberOfTables(Connection conn) throws SQLException {
+        ArrayList<String> ls=new ArrayList<>();
+        DatabaseMetaData dbMetaData= conn.getMetaData();
+
+        try(ResultSet rs=dbMetaData.getTables("hotels",null,null,new String[] {"TABLE"})){
+            while(rs.next()){
+                String tableName=rs.getString("TABLE_NAME");
+                ls.add(tableName);
+            }
+        }
+
+        System.out.println("Total number of Tables: "+ls.size());
+
+        for(String table:ls){
+            System.out.println(table);
+        }
 
     }
     public static void readAndPrintHotels(Connection conn){
-        
+        String query = "SELECT hotel_name, star_rating FROM hotel_details";
+
+        try(Statement stmt=conn.createStatement();
+            ResultSet rs=stmt.executeQuery(query)){
+            System.out.println("Hotel_Name | Star_Ratings");
+            System.out.println("--------------------------");
+
+            while(rs.next()){
+                String hotelName=rs.getString("hotel_name");
+                int starRating=rs.getInt("star_rating");
+                System.out.println(hotelName+" | "+starRating);
+            }
+
+
+        }catch (SQLException e){
+            System.out.println("Error while reading hotel_details: "+e.getMessage());
+        }
+
+
     }
     public static void insertNewHotel(Connection conn){
-        
+        // SQL query to insert data into the hotel_details table
+        String insertQuery = "INSERT INTO hotel_details (hotel_id,hotel_name, star_rating, city) VALUES (?, ?, ?, ?)";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(insertQuery)) {
+            pstmt.setInt(1, 101);  // Set hotel_id manually
+            pstmt.setString(2, "Ocean View Resort");
+            pstmt.setInt(3, 5);
+            pstmt.setString(4,"Pune");
+
+            int rowsInserted = pstmt.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println(" A new hotel was inserted successfully!");
+            } else {
+                System.out.println(" Insert failed. No rows were affected.");
+            }
+
+        } catch (SQLException e) {
+            System.out.println(" Error inserting new hotel: " + e.getMessage());
+        }
     }
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         // TODO: Establish a connection
-        Connection conn = DriverManager.getConnection("jdbc:mysql://url:port/db","username","password");
+        Properties props = new Properties();
+        Connection conn = null;
 
         try{
+            // Load the config file
+            //FileInputStream fis = new FileInputStream("config.properties");
+            props.load(App.class.getClassLoader().getResourceAsStream("config.properties"));
+
+            // Extract values
+            String url = props.getProperty("db.url");
+            String user = props.getProperty("db.user");
+            String password = props.getProperty("db.password");
+
+            conn = DriverManager.getConnection(url,user,password);
+
         // TODO: Implement a method to Print the number and names of Tables in database `hotels`
         printNumberOfTables(conn);
 
@@ -34,10 +98,16 @@ public class App {
         insertNewHotel(conn);
         }
         catch(Exception e){
-            System.out.println("Exception occured!!! \n "+ e.getStackTrace().toString());
+            System.out.println("Exception occurred: " + e.getMessage());
         }
-        finally{
-            conn.close();
+        finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    System.out.println("Error while closing connection: " + e.getMessage());
+                }
+            }
         }
     }
 }

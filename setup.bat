@@ -2,7 +2,7 @@
 
 REM MySQL credentials
 set MYSQL_USER=root
-set MYSQL_PASS=
+set MYSQL_PASS=Pappa@143
 
 REM Database name
 set DB_NAME=hotels
